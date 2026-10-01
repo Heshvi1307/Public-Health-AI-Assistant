@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swasthya Saarthi | AI Public Health Assistant</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%20%22100%22><text y=%22.9em%22 font-size=%2290%22>🩺</text></svg>">
+</head>
+<body>
+
+  <!-- Top App Navigation Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-wrapper" onclick="showView('landing')">
+        <div class="brand-avatar">
+          🩺
+          <span class="online-dot" title="Online"></span>
+        </div>
+        <div class="brand-info">
+          <h1 id="nav-brand-title">Swasthya Saarthi <span class="brand-badge-tag">AI</span></h1>
+          <p id="nav-brand-sub">Public Health Information Assistant • WHO Guidelines</p>
+        </div>
+      </div>
+
+      <div class="header-controls">
+        <button class="nav-link-btn active" id="nav-btn-home" onclick="showView('landing')">
+          <span data-i18n="nav_home">Home</span>
+        </button>
+        <button class="nav-link-btn" id="nav-btn-chat" onclick="showView('chat')">
+          <span data-i18n="nav_chat">Chat Assistant</span>
+        </button>
+        <button class="nav-link-btn" id="nav-btn-stepper" onclick="showView('stepper')">
+          <span data-i18n="nav_test">Health Test</span>
+        </button>
+        <button class="nav-link-btn" id="nav-btn-guidelines" onclick="openGuidelinesModal()">
+          <span data-i18n="nav_guidelines">Guidelines</span>
+        </button>
+        <button class="nav-link-btn" id="nav-btn-med" onclick="openMedicineModal()">
+          <span data-i18n="nav_med">Scan Medicine</span>
+        </button>
+        <button class="btn-emergency-nav" onclick="openEmergencyModal()">
+          🚨 <span data-i18n="nav_emergency">Helplines</span>
+        </button>
+
+        <!-- Language Switcher -->
+        <select id="lang-select" class="lang-select" onchange="onLanguageSelect()">
+          <option value="en">English</option>
+          <option value="hi">हिंदी</option>
+          <option value="gu">ગુજરાતી</option>
+        </select>
+
+        <!-- User Authentication Profile Badge -->
+        <div class="user-profile-badge" id="user-profile-badge" onclick="openAuthModal()">
+          <span id="user-display-name">Sign In</span>
+        </div>
+
+        <!-- Settings Button -->
+        <button class="nav-link-btn" onclick="openSettingsModal()" title="Settings">
+          ⚙️
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==============================================================
+       1. LANDING PAGE VIEW (Matching Traya reference screenshot)
+       ============================================================== -->
+  <section id="section-landing" class="landing-view">
+    <!-- Hero Banner -->
+    <div class="hero-section">
+      <div class="hero-container">
+        <div class="hero-text-block">
+          <div class="hero-pill-tag" data-i18n="hero_pill">SCIENCE & WHO-LED PUBLIC HEALTH ASSISTANT</div>
+          <h1 class="hero-title" data-i18n="hero_title">
+            Know the root cause of your <span data-i18n="hero_highlight">health symptoms</span>.
+          </h1>
+          <p class="hero-subtitle" data-i18n="hero_subtitle">
+            Empathetic, multilingual health guidance inside strict safety guardrails. Talk with Saarthi, take a 2-minute clinical triage check, or scan your medicine strip.
+          </p>
+          <div class="hero-actions">
+            <button class="btn-hero-primary" onclick="showView('stepper')">
+              📋 <span data-i18n="btn_take_test">TAKE THE HEALTH TEST™</span>
+            </button>
+            <button class="btn-hero-secondary" onclick="showView('chat')">
+              💬 <span data-i18n="btn_chat_saarthi">Chat with Saarthi</span>
+            </button>
+            <button class="btn-hero-secondary" onclick="openMedicineModal()">
+              📷 <span data-i18n="btn_scan_medicine">Scan Medicine Photo</span>
+            </button>
+          </div>
+          <div class="hero-trust-bar">
+            <div class="trust-item">🛡️ <span data-i18n="trust_who">WHO Grounded</span></div>
+            <div class="trust-item">🔒 <span data-i18n="trust_privacy">No Data Selling</span></div>
+            <div class="trust-item">🔊 <span data-i18n="trust_speech">Voice Spoken Guidance</span></div>
+            <div class="trust-item">🇮🇳 <span data-i18n="trust_lang">Hindi & Gujarati Ready</span></div>
+          </div>
+        </div>
+
+        <!-- Right Side Preview Card -->
+        <div class="hero-card-preview">
+          <span class="preview-badge" data-i18n="card_preview_badge">✓ 24x7 Public Health Companion</span>
+          <div class="preview-chat-bubble">
+            <strong data-i18n="card_saarthi_says">Saarthi says:</strong> "Namaste! I'm here to help you understand your symptoms, advise on home care, and let you know when to visit a doctor."
+          </div>
+          <div class="preview-features-list">
+            <div class="preview-feat">💬 <span data-i18n="feat_1">Instant Multilingual Chat Assistant</span></div>
+            <div class="preview-feat">🔊 <span data-i18n="feat_2">Listen Aloud (Speech for Elders & Kids)</span></div>
+            <div class="preview-feat">💊 <span data-i18n="feat_3">Upload Medicine Photo for Simple Details</span></div>
+            <div class="preview-feat">🚨 <span data-i18n="feat_4">Instant 108 / 112 Emergency Interception</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature Grid Section -->
+    <div class="features-section">
+      <div class="features-grid">
+        <div class="feature-box" onclick="showView('chat')">
+          <div class="feature-icon">💬</div>
+          <h3 class="feature-title" data-i18n="f_chat_title">Chat with Saarthi</h3>
+          <p class="feature-desc" data-i18n="f_chat_desc">Talk naturally in Hindi, Gujarati, or English. Get empathetic guidance, supportive self-care, and warning signs.</p>
+        </div>
+
+        <div class="feature-box" onclick="showView('stepper')">
+          <div class="feature-icon">📋</div>
+          <h3 class="feature-title" data-i18n="f_test_title">2-Min Guided Health Check</h3>
+          <p class="feature-desc" data-i18n="f_test_desc">A step-by-step visual questionnaire with clear cards to determine your urgency level and care steps.</p>
+        </div>
+
+        <div class="feature-box" onclick="openMedicineModal()">
+          <div class="feature-icon">📷</div>
+          <h3 class="feature-title" data-i18n="f_med_title">Medicine Photo Explainer</h3>
+          <p class="feature-desc" data-i18n="f_med_desc">Take a photo of any medicine tablet or syrup to understand what it is used for in simple everyday terms.</p>
+        </div>
+
+        <div class="feature-box" onclick="openEmergencyModal()">
+          <div class="feature-icon">🚨</div>
+          <h3 class="feature-title" data-i18n="f_emerg_title">Emergency Directory</h3>
+          <p class="feature-desc" data-i18n="f_emerg_desc">Instant 1-tap call access to 108 Ambulance, 112 Emergency, 14416 Tele-MANAS, and 102 Maternal care.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================================
+       2. CONVERSATIONAL CHATBOT (Swasthya Saarthi)
+       ============================================================== -->
+  <main class="app-main" id="main-content-app" style="display: none;">
+    <section id="section-chat" class="chat-window">
+      <!-- Quick Symptom Chips Header -->
+      <div class="chat-topics-bar">
+        <span class="topic-bar-label" data-i18n="quick_topics_label">Common:</span>
+        <button class="topic-chip" onclick="sendQuickMessage('I have a fever and body aches')">🌡️ <span data-i18n="chip_fever">Fever</span></button>
+        <button class="topic-chip" onclick="sendQuickMessage('I have a cough and runny nose')">🤧 <span data-i18n="chip_cough">Cold & Cough</span></button>
+        <button class="topic-chip" onclick="sendQuickMessage('I have a mild headache')">🤕 <span data-i18n="chip_headache">Headache</span></button>
+        <button class="topic-chip" onclick="sendQuickMessage('I have loose motions and upset stomach')">🤢 <span data-i18n="chip_stomach">Stomach Upset</span></button>
+        <button class="topic-chip highlight" onclick="showView('stepper')">📋 <span data-i18n="chip_test">Take Health Test</span></button>
+        <button class="topic-chip" onclick="openMedicineModal()">📷 <span data-i18n="chip_scan">Scan Medicine</span></button>
+      </div>
+
+      <!-- Live Messages Scroll Container -->
+      <div class="chat-messages" id="chat-messages-container">
+        <!-- Messages will be rendered dynamically here -->
+      </div>
+
+      <!-- Chat Input Area -->
+      <div class="chat-input-bar">
+        <!-- Direct image attachment preview thumbnail (shown when user selects image) -->
+        <div id="chat-attached-image-bar" class="chat-attached-preview" style="display: none;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <img id="chat-attached-image-thumb" src="" alt="Medicine Thumbnail">
+            <div>
+              <span id="chat-attached-image-name" style="font-size: 0.82rem; color: #1e293b; font-weight: 700; display: block;">photo.jpg</span>
+              <span style="font-size: 0.72rem; color: #0d9488;">Photo ready • Saarthi will explain this medicine</span>
+            </div>
+          </div>
+          <button type="button" onclick="cancelChatImageAttachment()" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #64748b; padding: 4px 8px;" title="Remove attachment">✕</button>
+        </div>
+
+        <form class="chat-input-form" onsubmit="handleUserChatSubmit(event)">
+          <input type="file" id="chat-file-input" accept="image/*" style="display: none;" onchange="handleChatImageSelected(event)">
+          <button type="button" class="btn-icon-addon" onclick="triggerChatImageUpload()" title="Attach medicine photo">
+            📷
+          </button>
+          <input 
+            type="text" 
+            id="chat-user-input" 
+            class="chat-input" 
+            placeholder="Type your symptoms (e.g. I have a sore throat and mild fever)..." 
+            autocomplete="off"
+            maxlength="500"
+          >
+          <button type="submit" class="btn-send" id="btn-chat-send" title="Send message">
+            ➤
+          </button>
+        </form>
+        <p class="chat-disclaimer" data-i18n="chat_disclaimer">
+          🔒 Informational guidance only • Not a medical diagnosis • Call 108 in emergencies
+        </p>
+      </div>
+    </section>
+
+    <!-- ==============================================================
+         3. GUIDED HEALTH ASSESSMENT (Traya-Style Stepper)
+         ============================================================== -->
+    <section id="section-stepper" class="assessment-wrapper" style="display: none;">
+      <div class="assessment-topbar">
+        <span data-i18n="stepper_topbar">This health assessment is co-created with public health experts</span>
+        <span style="cursor: pointer; opacity: 0.8;" onclick="showView('landing')">Exit ✕</span>
+      </div>
+
+      <div class="stepper-nav-bar">
+        <button class="btn-secondary" id="btn-stepper-prev" onclick="goToPreviousStep()" style="visibility: hidden;">
+          ← <span data-i18n="btn_prev">Previous</span>
+        </button>
+        <div class="stepper-tabs">
+          <div class="step-tab active" id="tab-step-1">1. <span data-i18n="step_1">About You</span></div>
+          <div class="step-tab" id="tab-step-2">2. <span data-i18n="step_2">Symptoms</span></div>
+          <div class="step-tab" id="tab-step-3">3. <span data-i18n="step_3">Duration & Severity</span></div>
+          <div class="step-tab" id="tab-step-4">4. <span data-i18n="step_4">Health History</span></div>
+          <div class="step-tab" id="tab-step-5">5. <span data-i18n="step_5">Care Plan</span></div>
+        </div>
+        <button class="btn-secondary" onclick="showView('landing')">
+          <span data-i18n="btn_exit">Exit</span>
+        </button>
+      </div>
+
+      <div class="stepper-progress-wrapper">
+        <div class="stepper-progress-bar">
+          <div class="stepper-progress-fill" id="stepper-progress-fill" style="width: 20%;"></div>
+        </div>
+        <div class="progress-text" id="stepper-progress-text">Step 1 of 5 (20%)</div>
+      </div>
+
+      <div class="step-content">
+        <!-- STEP 1: ABOUT YOU -->
+        <div id="step-pane-1" class="step-pane">
+          <h2 class="step-question-title" data-i18n="q_who">Who is this assessment for?</h2>
+          <p class="step-question-subtitle" data-i18n="sub_who">Select the age group of the person experiencing symptoms:</p>
+
+          <div class="options-grid">
+            <div class="option-card" onclick="selectCardOption('age', '18-59', this)">
+              <div class="option-card-info">
+                <div class="option-card-title" data-i18n="age_adult">Adult (18–59 years)</div>
+                <div class="option-card-desc" data-i18n="age_adult_desc">Working adult or young adult</div>
+              </div>
+              <div class="option-card-icon">🧑</div>
+            </div>
+
+            <div class="option-card" onclick="selectCardOption('age', '1-5', this)">
+              <div class="option-card-info">
+                <div class="option-card-title" data-i18n="age_toddler">Young Child (1–5 years)</div>
+                <div class="option-card-desc" data-i18n="age_toddler_desc">Toddler / young child</div>
+              </div>
+              <div class="option-card-icon">🧒</div>
+            </div>
+
+            <div class="option-card" onclick="selectCardOption('age', '<1 yr', this)">
+              <div class="option-card-info">
+                <div class="option-card-title" data-i18n="age_infant">Infant (&lt;1 year)</div>
+                <div class="option-card-desc" data-i18n="age_infant_desc">Baby under 12 months</div>
+              </div>
+              <div class="option-card-icon">👶</div>
+            </div>
+
+            <div class="option-card" onclick="selectCardOption('age', '6-17', this)">
+              <div class="option-card-info">
+                <div class="option-card-title" data-i18n="age_teen">Child / Teen (6–17 years)</div>
+                <div class="option-card-desc" data-i18n="age_teen_desc">School-age child or teenager</div>
+              </div>
+              <div class="option-card-icon">🎒</div>
+            </div>
+
+            <div class="option-card" onclick="selectCardOption('age', '60+', this)">
+              <div class="option-card-info">
+                <div class="option-card-title" data-i18n="age_senior">Senior (60+ years)</div>
+                <div class="option-card-desc" data-i18n="age_senior_desc">Elderly family member</div>
+              </div>
+              <div class="option-card-icon">👴</div>
+            </div>
+          </div>
+
+          <h3 style="font-size: 1rem; font-weight: 700; margin: 18px 0 10px;" data-i18n="gender_title">Gender</h3>
+          <div class="options-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+            <div class="option-card" onclick="selectCardOption('sex', 'Male', this)">
+              <div class="option-card-info"><div class="option-card-title" data-i18n="gender_male">Male</div></div>
+              <div class="option-card-icon">👨</div>
+            </div>
+            <div class="option-card" onclick="selectCardOption('sex', 'Female', this)">
+              <div class="option-card-info"><div class="option-card-title" data-i18n="gender_female">Female</div></div>
+              <div class="option-card-icon">👩</div>
+            </div>
+            <div class="option-card" onclick="selectCardOption('sex', 'Prefer not to say', this)">
+              <div class="option-card-info"><div class="option-card-title" data-i18n="gender_other">Other / Prefer not to say</div></div>
+              <div class="option-card-icon">🤝</div>
+            </div>
+          </div>
+
+          <div id="stepper-pregnancy-block" style="display: none; margin-top: 14px;">
+            <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 8px;" data-i18n="pregnant_title">Are you currently pregnant?</h3>
+            <div class="options-grid" style="grid-template-columns: 1fr 1fr;">
+              <div class="option-card" onclick="selectCardOption('pregnant', 'No', this)">
+                <div class="option-card-info"><div class="option-card-title" data-i18n="ans_no">No</div></div>
+                <div class="option-card-icon">✕</div>
+              </div>
+              <div class="option-card" onclick="selectCardOption('pregnant', 'Yes', this)">
+                <div class="option-card-info"><div class="option-card-title" data-i18n="ans_yes">Yes</div></div>
+                <div class="option-card-icon">🤰</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-actions">
+            <div></div>
+            <button class="btn-next" onclick="goToStep(2)"><span data-i18n="btn_next_symptoms">Next: Symptoms</span> →</button>
+          </div>
+        </div>
+
+        <!-- STEP 2: SYMPTOMS -->
+        <div id="step-pane-2" class="step-pane" style="display: none;">
+          <h2 class="step-question-title" data-i18n="q_symptoms">What are your primary symptoms?</h2>
+          <p class="step-question-subtitle" data-i18n="sub_symptoms">Select all symptoms you are experiencing right now:</p>
+
+          <div class="options-grid">
+            <div class="option-card" onclick="toggleMultiCardOption('symptom', 'Fever & chills', this)">
+              <div class="option-card-info">
+                <div class="option-card-title" data-i18n="sym_fever">Fever or Chills</div>
+                <div class="option-card-desc" data-i18n="sym_fever_desc">Elevated body temperature, feeling hot/cold</div>
+              </div>
+              <div class="option-card-icon">🌡️</div>
+            </div>
+
+            <div class="option-card" onclick="toggleMultiCardOption('symptom', 'Runny nose & sneezing', this)">
+              <div class="option-card-info">
+                <div class="option-card-title" data-i18n="sym_cold">Cold & Runny Nose</div>
+                <div class="option-card-desc" data-i18n="sym_cold_desc">Nasal congestion, watery nose, sneezing</div>
+              </div>
+              <div class="option-card-icon">🤧</div>
+            </div>
+
+            <div class="option-card" onclick="toggleMultiCardOption('symptom', 'Cough & throat irritation', this)">
+              <div class="option-card-info">
+                <div class="option-card-title" data-i18n="sym_cough">Cough & Sore Throat</div>
+                <div class="option-card-desc" data-i18n="sym_cough_desc">Scratchy throat, dry or wet cough</div>
+              </div>
+              <div class="option-card-icon">🫁</div>
+            </div>
+
+            <div class="option-card" onclick="toggleMultiCardOption('symptom', 'Headache', this)">
+              <div class="option-card-info">
+                <div class="option-card-title" data-i18n="sym_headache">Headache</div>
+                <div class="option-card-desc" data-i18n="sym_headache_desc">Head pain, forehead pressure, tension</div>
+              </div>
+              <div class="option-card-icon">🤕</div>
+            </div>
+
+            <div class="option-card" onclick="toggleMultiCardOption('symptom', 'Loose motions & vomiting', this)">
+              <div class="option-card-info">
+                <div class="option-card-title" data-i18n="sym_stomach">Loose Motions / Vomiting</div>
+                <div class="option-card-desc" data-i18n="sym_stomach_desc">Watery stools, nausea, upset stomach</div>
+              </div>
+              <div class="option-card-icon">🤢</div>
+            </div>
+
+            <div class="option-card" onclick="toggleMultiCardOption('symptom', 'Body aches & tiredness', this)">
+              <div class="option-card-info">
+                <div class="option-card-title" data-i18n="sym_fatigue">Fatigue & Body Aches</div>
+                <div class="option-card-desc" data-i18n="sym_fatigue_desc">General weakness, muscle soreness</div>
+              </div>
+              <div class="option-card-icon">🥱</div>
+            </div>
+          </div>
+
+          <div style="margin-top: 14px;">
+            <label style="font-size: 0.85rem; font-weight: 600; color: #475569; display: block; margin-bottom: 6px;" data-i18n="more_details_label">
+              Additional symptom details (optional):
+            </label>
+            <input 
+              type="text" 
+              id="stepper-symptoms-text" 
+              class="chat-input" 
+              placeholder="e.g. Mild headache since morning" 
+              maxlength="300"
+            >
+          </div>
+
+          <div class="step-actions">
+            <button class="btn-secondary" onclick="goToStep(1)">← <span data-i18n="btn_prev">Previous</span></button>
+            <button class="btn-next" onclick="goToStep(3)"><span data-i18n="btn_next_duration">Next: Duration</span> →</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: DURATION & SEVERITY -->
+        <div id="step-pane-3" class="step-pane" style="display: none;">
+          <h2 class="step-question-title" data-i18n="q_duration">How long and how severe?</h2>
+          <p class="step-question-subtitle" data-i18n="sub_duration">Select the duration and impact of your symptoms:</p>
+
+          <h3 style="font-size: 0.95rem; font-weight: 700; color: #334155; margin-bottom: 10px;" data-i18n="dur_title">How long have you had symptoms?</h3>
+          <div class="options-grid">
+            <div class="option-card" onclick="selectCardOption('duration', '<24h', this)">
+              <div class="option-card-info">
+                <div class="option-card-title" data-i18n="dur_24h">Less than 24 hours</div>
+                <div class="option-card-desc" data-i18n="dur_24h_desc">Just started today or yesterday night</div>
+              </div>
+              <div class="option-card-icon">⏱️</div>
+            </div>
+
+            <div class="option-card" onclick="selectCardOption('duration', '1-3 days', this)">
+              <div class="option-card-info">
+                <div class="option-card-title" data-i18n="dur_3d">1 to 3 days</div>
+                <div class="option-card-desc" data-i18n="dur_3d_desc">Ongoing for a couple of days</div>
+              </div>
+              <div class="option-card-icon">🗓️</div>
+            </div>
+
+            <div class="option-card" onclick="selectCardOption('duration', '4-7 days', this)">
+              <div class="option-card-info">
+                <div class="option-card-title" data-i18n="dur_7d">4 to 7 days</div>
+                <div class="option-card-desc" data-i18n="dur_7d_desc">Almost a full week</div>
+              </div>
+              <div class="option-card-icon">📅</div>
+            </div>
+
+            <div class="option-card" onclick="selectCardOption('duration', '>1 week', this)">
+              <div class="option-card-info">
+                <div class="option-card-title" data-i18n="dur_1w">More than 1 week</div>
+                <div class="option-card-desc" data-i18n="dur_1w_desc">Persistent symptoms lasting over 7 days</div>
+              </div>
+              <div class="option-card-icon">⏳</div>
+            </div>
+          </div>
+
+          <h3 style="font-size: 0.95rem; font-weight: 700; color: #334155; margin: 20px 0 10px;" data-i18n="sev_title">How severe is your discomfort?</h3>
+          <div class="options-grid">
+            <div class="option-card" onclick="selectCardOption('severity', 'Mild', this)">
+              <div class="option-card-info">
+                <div class="option-card-title" data-i18n="sev_mild">Mild Discomfort</div>
+                <div class="option-card-desc" data-i18n="sev_mild_desc">Can easily do normal daily activities</div>
+              </div>
+              <div class="option-card-icon">🟢</div>
+            </div>
+
+            <div class="option-card" onclick="selectCardOption('severity', 'Moderate', this)">
+              <div class="option-card-info">
+                <div class="option-card-title" data-i18n="sev_mod">Moderate Impact</div>
+                <div class="option-card-desc" data-i18n="sev_mod_desc">Noticeable discomfort, interferes with routine</div>
+              </div>
+              <div class="option-card-icon">🟡</div>
+            </div>
+
+            <div class="option-card" onclick="selectCardOption('severity', 'Severe', this)">
+              <div class="option-card-info">
+                <div class="option-card-title" data-i18n="sev_sev">Severe Discomfort</div>
+                <div class="option-card-desc" data-i18n="sev_sev_desc">Very uncomfortable, bed rest required</div>
+              </div>
+              <div class="option-card-icon">🟠</div>
+            </div>
+          </div>
+
+          <div class="step-actions">
+            <button class="btn-secondary" onclick="goToStep(2)">← <span data-i18n="btn_prev">Previous</span></button>
+            <button class="btn-next" onclick="goToStep(4)"><span data-i18n="btn_next_history">Next: Health History</span> →</button>
+          </div>
+        </div>
+
+        <!-- STEP 4: HEALTH HISTORY -->
+        <div id="step-pane-4" class="step-pane" style="display: none;">
+          <h2 class="step-question-title" data-i18n="q_history">Any existing health conditions?</h2>
+          <p class="step-question-subtitle" data-i18n="sub_history">Select any chronic conditions you manage:</p>
+
+          <div class="options-grid">
+            <div class="option-card" onclick="toggleMultiCardOption('chronic', 'Diabetes', this)">
+              <div class="option-card-info">
+                <div class="option-card-title" data-i18n="cond_diabetes">Diabetes</div>
+                <div class="option-card-desc" data-i18n="cond_diabetes_desc">Blood sugar condition</div>
+              </div>
+              <div class="option-card-icon">🩸</div>
+            </div>
+
+            <div class="option-card" onclick="toggleMultiCardOption('chronic', 'Heart disease', this)">
+              <div class="option-card-info">
+                <div class="option-card-title" data-i18n="cond_heart">Heart / Blood Pressure</div>
+                <div class="option-card-desc" data-i18n="cond_heart_desc">Cardiovascular condition</div>
+              </div>
+              <div class="option-card-icon">❤️</div>
+            </div>
+
+            <div class="option-card" onclick="toggleMultiCardOption('chronic', 'Asthma/COPD', this)">
+              <div class="option-card-info">
+                <div class="option-card-title" data-i18n="cond_asthma">Asthma or Respiratory</div>
+                <div class="option-card-desc" data-i18n="cond_asthma_desc">Chronic breathing conditions</div>
+              </div>
+              <div class="option-card-icon">🌬️</div>
+            </div>
+
+            <div class="option-card" onclick="selectNoneChronic(this)">
+              <div class="option-card-info">
+                <div class="option-card-title" data-i18n="cond_none">None / Generally Healthy</div>
+                <div class="option-card-desc" data-i18n="cond_none_desc">No major chronic conditions</div>
+              </div>
+              <div class="option-card-icon">✨</div>
+            </div>
+          </div>
+
+          <div class="step-actions">
+            <button class="btn-secondary" onclick="goToStep(3)">← <span data-i18n="btn_prev">Previous</span></button>
+            <button class="btn-next" id="btn-generate-assessment" onclick="generateGuidedAssessment()">
+              <span data-i18n="btn_gen_plan">Generate Saarthi Care Plan ✨</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 5: CARE PLAN RESULTS -->
+        <div id="step-pane-5" class="step-pane" style="display: none;">
+          <div id="assessment-result-card" class="result-card"></div>
+          <div class="step-actions" style="margin-top: 18px;">
+            <button class="btn-secondary" onclick="resetStepper()">↻ <span data-i18n="btn_restart">Start New Check</span></button>
+            <button class="btn-next" onclick="continueInChat()">💬 <span data-i18n="btn_continue_chat">Continue in Chat with Saarthi</span> →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==============================================================
+       MODAL 1: AUTHENTICATION / SIGN UP (Matching Traya Modal)
+       ============================================================== -->
+  <div class="modal-backdrop" id="modal-auth" onclick="closeModalOnBackdrop(event, 'modal-auth')">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>🔒</span> <span data-i18n="auth_modal_title">Your Personal Health Profile</span>
+        </div>
+        <button class="btn-close-modal" onclick="closeAuthModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="auth-hero-icon">🩺</div>
+        <h3 style="text-align: center; font-size: 1.15rem; font-weight: 800; margin-bottom: 6px;" data-i18n="auth_headline">
+          Personalise your Saarthi health guidance
+        </h3>
+        <p style="text-align: center; font-size: 0.85rem; color: #64748b; margin-bottom: 20px;" data-i18n="auth_sub">
+          Saved once on your device to remember your language, age group, and provide personalized answers.
+        </p>
+
+        <form id="form-auth" onsubmit="handleAuthSubmit(event)">
+          <div class="form-group">
+            <label class="form-label" data-i18n="auth_label_name">Full Name *</label>
+            <input type="text" id="auth-name" class="form-input" placeholder="e.g. Rahul Sharma" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" data-i18n="auth_label_phone">Phone Number (Optional)</label>
+            <input type="text" id="auth-phone" class="form-input" placeholder="e.g. 9876543210">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" data-i18n="auth_label_age">Age Group</label>
+            <select id="auth-age" class="form-input">
+              <option value="18-59">Adult (18–59 years)</option>
+              <option value="1-5">Young Child (1–5 years)</option>
+              <option value="<1 yr">Infant (&lt;1 year)</option>
+              <option value="6-17">Child / Teen (6–17 years)</option>
+              <option value="60+">Senior (60+ years)</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn-submit-modal" data-i18n="auth_btn_save">
+            Save & Continue to Saarthi →
+          </button>
+          <button type="button" class="btn-skip-modal" onclick="closeAuthModal()" data-i18n="auth_btn_skip">
+            Continue as Guest / Skip
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==============================================================
+       MODAL 2: MEDICINE PHOTO SCANNER (Simple for All Ages)
+       ============================================================== -->
+  <div class="modal-backdrop" id="modal-medicine" onclick="closeModalOnBackdrop(event, 'modal-medicine')">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>📷</span> <span data-i18n="med_modal_title">Scan Medicine Photo</span>
+        </div>
+        <button class="btn-close-modal" onclick="closeMedicineModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.85rem; color: #475569; margin-bottom: 14px;" data-i18n="med_modal_sub">
+          Upload a photo of your tablet strip, syrup bottle, or box. Saarthi will explain what it is used for in simple, easy terms for your family.
+        </p>
+
+        <!-- Upload Drag Zone -->
+        <div class="medicine-upload-zone" id="med-upload-zone" onclick="document.getElementById('med-file-input').click()">
+          <div id="med-upload-placeholder">
+            <div style="font-size: 2.2rem; margin-bottom: 8px;">📷</div>
+            <strong style="color: var(--primary-dark); font-size: 0.95rem;" data-i18n="med_click_photo">Take or Upload Medicine Photo</strong>
+            <p style="font-size: 0.75rem; color: #64748b; margin-top: 4px;" data-i18n="med_formats">Supports JPG, PNG (camera or gallery)</p>
+          </div>
+          <div id="med-upload-preview" style="display: none; text-align: center;">
+            <img id="med-preview-img" src="" alt="Medicine Strip Preview" style="max-height: 130px; max-width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 6px;">
+            <p id="med-preview-filename" style="font-size: 0.8rem; font-weight: 700; color: #334155; margin: 0;"></p>
+            <span style="font-size: 0.75rem; color: var(--primary); text-decoration: underline; cursor: pointer;">Tap to change photo</span>
+          </div>
+          <input type="file" id="med-file-input" accept="image/*" style="display: none;" onchange="handleMedicineFile(event)">
+        </div>
+
+        <!-- Optional Name Field for Blurry Photos -->
+        <div style="margin: 12px 0 16px; display: flex; gap: 8px;">
+          <input type="text" id="med-manual-input" class="chat-input" style="border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.85rem; padding: 9px 12px; flex: 1;" placeholder="Or type medicine name (e.g. Paracetamol, Pan 40)...">
+          <button type="button" class="btn-primary" style="padding: 9px 16px; border-radius: 8px; font-size: 0.85rem; background: var(--primary); color: white; border: none; font-weight: 700; cursor: pointer;" onclick="analyzeMedicineFromManualInput()">Analyze</button>
+        </div>
+
+        <!-- Quick Sample Medicine Pills -->
+        <div style="font-size: 0.8rem; font-weight: 700; color: #475569; margin-bottom: 6px;" data-i18n="med_quick_samples">
+          Or tap a common medicine:
+        </div>
+        <div class="sample-med-pills">
+          <button type="button" class="med-pill" onclick="analyzeMedicine('Paracetamol / Crocin')">💊 Paracetamol / Crocin</button>
+          <button type="button" class="med-pill" onclick="analyzeMedicine('ORS / Electral')">💧 ORS Sachet</button>
+          <button type="button" class="med-pill" onclick="analyzeMedicine('Cetirizine / Cetzine')">🤧 Cetirizine (Cold)</button>
+          <button type="button" class="med-pill" onclick="analyzeMedicine('Pantoprazole / Pan 40')">🔥 Pantoprazole (Acidity)</button>
+          <button type="button" class="med-pill" onclick="analyzeMedicine('Cough Syrup')">🍯 Cough Syrup</button>
+          <button type="button" class="med-pill" onclick="analyzeMedicine('Digene / Gelusil')">🌿 Digene Antacid</button>
+        </div>
+
+        <!-- Result Box -->
+        <div id="medicine-analysis-result" style="display: none;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==============================================================
+       MODAL 3: EMERGENCY SERVICES DIRECTORY
+       ============================================================== -->
+  <div class="modal-backdrop" id="modal-emergency" onclick="closeModalOnBackdrop(event, 'modal-emergency')">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title" style="color: #dc2626;">
+          <span>🚨</span> <span data-i18n="emerg_modal_title">National Emergency Health Helplines</span>
+        </div>
+        <button class="btn-close-modal" onclick="closeEmergencyModal()">✕</button>
+      </div>
+      <div class="modal-body" style="padding: 10px 20px;">
+        <p style="font-size: 0.82rem; color: #475569; margin: 10px 0 16px;" data-i18n="emerg_modal_sub">
+          Direct toll-free 24x7 emergency contacts across India. Tap any button to call directly:
+        </p>
+
+        <div id="emergency-contacts-list">
+          <div class="helpline-item">
+            <div class="helpline-info">
+              <h4>🚑 Medical Ambulance</h4>
+              <p>24x7 Emergency patient transport & first responders</p>
+            </div>
+            <a href="tel:108" class="helpline-call-btn">📞 Call 108</a>
+          </div>
+
+          <div class="helpline-item">
+            <div class="helpline-info">
+              <h4>🚨 National Emergency Helpline</h4>
+              <p>Unified emergency response (Police, Fire, Ambulance)</p>
+            </div>
+            <a href="tel:112" class="helpline-call-btn">📞 Call 112</a>
+          </div>
+
+          <div class="helpline-item">
+            <div class="helpline-info">
+              <h4>💜 Tele-MANAS Mental Health</h4>
+              <p>Govt 24x7 free counseling & psychological crisis support</p>
+            </div>
+            <a href="tel:14416" class="helpline-call-btn" style="background: #7c3aed;">📞 Call 14416</a>
+          </div>
+
+          <div class="helpline-item">
+            <div class="helpline-info">
+              <h4>🏥 National Health Helpline (MoHFW)</h4>
+              <p>Ministry of Health & Family Welfare helpline</p>
+            </div>
+            <a href="tel:1075" class="helpline-call-btn" style="background: #0284c7;">📞 Call 1075</a>
+          </div>
+
+          <div class="helpline-item">
+            <div class="helpline-info">
+              <h4>🤰 Maternal & Child Ambulance (JSSK)</h4>
+              <p>Free transport for pregnant mothers and newborns</p>
+            </div>
+            <a href="tel:102" class="helpline-call-btn" style="background: #059669;">📞 Call 102</a>
+          </div>
+
+          <div class="helpline-item">
+            <div class="helpline-info">
+              <h4>👩 Women in Distress Helpline</h4>
+              <p>24x7 toll-free crisis helpline for women</p>
+            </div>
+            <a href="tel:181" class="helpline-call-btn" style="background: #db2777;">📞 Call 181</a>
+          </div>
+
+          <div class="helpline-item">
+            <div class="helpline-info">
+              <h4>🧒 Childline Support</h4>
+              <p>National emergency care service for children in distress</p>
+            </div>
+            <a href="tel:1098" class="helpline-call-btn" style="background: #d97706;">📞 Call 1098</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==============================================================
+       MODAL 4: SETTINGS MODAL (Chatbot Profile & Preferences)
+       ============================================================== -->
+  <div class="modal-backdrop" id="modal-settings" onclick="closeModalOnBackdrop(event, 'modal-settings')">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>⚙️</span> <span data-i18n="settings_modal_title">Settings & Profile</span>
+        </div>
+        <button class="btn-close-modal" onclick="closeSettingsModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="form-settings" onsubmit="handleSettingsSave(event)">
+          <div class="form-group">
+            <label class="form-label" data-i18n="settings_name">Your Name</label>
+            <input type="text" id="settings-name" class="form-input" placeholder="e.g. Rahul Sharma">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" data-i18n="settings_age">Age Group</label>
+            <select id="settings-age" class="form-input">
+              <option value="18-59">Adult (18–59 years)</option>
+              <option value="1-5">Young Child (1–5 years)</option>
+              <option value="<1 yr">Infant (<1 year)</option>
+              <option value="6-17">Child / Teen (6–17 years)</option>
+              <option value="60+">Senior (60+ years)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" data-i18n="settings_language">Language Preference</label>
+            <select id="settings-lang" class="form-input" onchange="onSettingsLangChange()">
+              <option value="en">English</option>
+              <option value="hi">हिंदी (Hindi)</option>
+              <option value="gu">ગુજરાતી (Gujarati)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" data-i18n="settings_fontsize">Text Size (Accessibility)</label>
+            <select id="settings-fontsize" class="form-input" onchange="toggleFontSize(this.value)">
+              <option value="normal">Standard Font Size</option>
+              <option value="large">Large Font (Easy for Elders)</option>
+            </select>
+          </div>
+
+          <div style="border-top: 1px solid var(--border); padding-top: 14px; margin-top: 14px;">
+            <button type="submit" class="btn-submit-modal" data-i18n="settings_save_btn">
+              Save Settings
+            </button>
+            <button type="button" class="btn-skip-modal" style="color: #dc2626; text-decoration: none;" onclick="clearChatHistory()">
+              🗑️ <span data-i18n="settings_clear_chat">Clear Chat Conversation</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==============================================================
+       MODAL 5: GENERAL PUBLIC HEALTH GUIDELINES
+       ============================================================== -->
+  <div class="modal-backdrop" id="modal-guidelines" onclick="closeModalOnBackdrop(event, 'modal-guidelines')">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>🛡️</span> <span data-i18n="guide_modal_title">General Public Health Guidelines</span>
+        </div>
+        <button class="btn-close-modal" onclick="closeGuidelinesModal()">✕</button>
+      </div>
+      <div class="modal-body" id="guidelines-content-body" style="max-height: 75vh; overflow-y: auto;">
+        <p style="font-size: 0.85rem; color: #475569; margin-bottom: 16px;">
+          Core wellness and preventive recommendations from the World Health Organization (WHO) and MoHFW:
+        </p>
+
+        <div class="plan-section">
+          <div class="plan-title">💧 1. Daily Hydration</div>
+          <p style="font-size: 0.85rem; color: #334155;">
+            Drink at least 2.5 to 3 liters (8–10 glasses) of clean drinking water daily. Increase intake during fever, loose motions, or hot weather.
+          </p>
+        </div>
+
+        <div class="plan-section">
+          <div class="plan-title">🥗 2. Balanced Nutrition</div>
+          <p style="font-size: 0.85rem; color: #334155;">
+            Consume home-cooked meals rich in lentils (dal), green leafy vegetables, and seasonal fruits. Limit excess sodium, refined sugars, and deep-fried items.
+          </p>
+        </div>
+
+        <div class="plan-section">
+          <div class="plan-title">😴 3. Sleep & Recovery</div>
+          <p style="font-size: 0.85rem; color: #334155;">
+            Aim for 7 to 8 hours of uninterrupted sleep every night to maintain cellular repair and immune defense.
+          </p>
+        </div>
+
+        <div class="plan-section">
+          <div class="plan-title">🚶 4. Physical Movement</div>
+          <p style="font-size: 0.85rem; color: #334155;">
+            Practice 30 minutes of moderate activity such as brisk walking, yoga, or stretching on most days.
+          </p>
+        </div>
+
+        <div class="plan-section">
+          <div class="plan-title">🧼 5. Hand & Food Hygiene</div>
+          <p style="font-size: 0.85rem; color: #334155;">
+            Wash hands with soap for at least 20 seconds before preparing food, eating, and after using restrooms or coming from outdoors.
+          </p>
+        </div>
+
+        <div class="plan-section" style="background: #fffbeb; border-color: #fde68a;">
+          <div class="plan-title" style="color: #b45309;">🩺 6. When to Seek In-Person Medical Care</div>
+          <p style="font-size: 0.85rem; color: #334155;">
+            If fever exceeds 3 days, cough persists over 2 weeks, or you experience difficulty breathing, chest pain, or severe weakness, always consult a qualified healthcare provider.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

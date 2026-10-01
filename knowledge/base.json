@@ -1,0 +1,177 @@
+{
+  "entries": [
+    {
+      "id": "common_cold",
+      "topic": "Common Cold & Runny Nose",
+      "aliases": ["cold", "runny nose", "sneezing", "congestion", "sore throat", "जुकाम", "सर्दी", "नाक बहना", "શરદી", "છીંક", "નાકમાંથી પાણી"],
+      "general_information": [
+        "Common colds are typically self-limiting viral upper respiratory infections.",
+        "Symptoms usually peak within 2 to 3 days and gradually resolve within 7 to 10 days."
+      ],
+      "self_care": [
+        "Get adequate rest and sleep to support immune function.",
+        "Drink plenty of fluids such as warm water, clear broths, and herbal teas.",
+        "Use warm saline gargles for throat discomfort.",
+        "Consider steam inhalation to ease nasal congestion.",
+        "Wash hands frequently with soap and water to prevent viral transmission."
+      ],
+      "warning_signs": [
+        "Difficulty breathing or persistent chest discomfort",
+        "High fever persisting beyond 3 days",
+        "Inability to swallow liquids or severe throat swelling",
+        "Sudden worsening after initial improvement"
+      ],
+      "when_to_seek_care": [
+        "Symptoms persist without improvement beyond 10 days",
+        "Severe earache or persistent sinus pain develops",
+        "Patient has compromised immunity or chronic respiratory illness"
+      ],
+      "source": "World Health Organization (WHO) & MoHFW Clinical Guidance",
+      "source_url": "https://www.who.int/news-room/fact-sheets/detail/influenza-(seasonal)",
+      "last_reviewed": "2025-01-15"
+    },
+    {
+      "id": "mild_fever",
+      "topic": "Mild Fever & Pyrexia",
+      "aliases": ["fever", "mild fever", "temperature", "feverish", "bukhar", "बुखार", "ताप", "તાવ", "high temp"],
+      "general_information": [
+        "Fever is a natural physiological defense mechanism against infection.",
+        "An isolated mild elevation in temperature without alarming symptoms is common in brief viral illnesses."
+      ],
+      "self_care": [
+        "Rest in a comfortably cool, well-ventilated room with lightweight clothing.",
+        "Maintain high oral fluid intake to prevent fever-induced dehydration.",
+        "Apply lukewarm sponge baths to forehead and body if feeling overheated (never use cold ice water).",
+        "Monitor body temperature regularly using a clean digital thermometer."
+      ],
+      "warning_signs": [
+        "Fever accompanied by a stiff neck, confusion, or extreme lethargy",
+        "Fever with a new unexplained skin rash (petechiae or purple spots)",
+        "Fever exceeding 3 days without identifiable source",
+        "Rapid breathing or grunting in young infants"
+      ],
+      "when_to_seek_care": [
+        "Any fever in an infant under 3 months requires immediate medical evaluation",
+        "Fever lasting longer than 3 days in children or adults",
+        "Patient unable to keep oral fluids down due to vomiting"
+      ],
+      "source": "WHO Integrated Management of Childhood Illness (IMCI) & MoHFW",
+      "source_url": "https://www.who.int/teams/maternal-newborn-child-adolescent-health-and-ageing/child-health/integrated-management-of-childhood-illness",
+      "last_reviewed": "2025-02-10"
+    },
+    {
+      "id": "cough",
+      "topic": "Acute Cough",
+      "aliases": ["cough", "dry cough", "wet cough", "phlegm", "khansi", "खांसी", "ઉધરસ", "કફ"],
+      "general_information": [
+        "Acute cough is a protective reflex clearing irritants and mucus from the airways.",
+        "Most viral coughs resolve naturally over 2 to 3 weeks."
+      ],
+      "self_care": [
+        "Keep the throat hydrated with warm water, lemon water, or warm soups.",
+        "Use warm steam inhalation to loosen airway secretions.",
+        "Elevate head while sleeping if night coughing disturbs rest.",
+        "Avoid exposure to active or passive cigarette smoke, dust, and harsh fumes."
+      ],
+      "warning_signs": [
+        "Coughing up blood or rust-colored sputum",
+        "Shortness of breath, wheezing, or stridor (high-pitched breathing noise)",
+        "Severe sharp chest pain when breathing in",
+        "Cough persisting longer than 3 to 4 weeks"
+      ],
+      "when_to_seek_care": [
+        "Cough lasting more than 2 weeks without improvement",
+        "Accompanied by unexplained night sweats or weight loss",
+        "Pre-existing asthma, COPD, or cardiac conditions"
+      ],
+      "source": "National Health Portal of India (MoHFW) & WHO Respiratory Guidelines",
+      "source_url": "https://www.nhp.gov.in/disease/respiratory/cough",
+      "last_reviewed": "2025-01-20"
+    },
+    {
+      "id": "headache",
+      "topic": "Tension-type & Mild Headache",
+      "aliases": ["headache", "head pain", "migraine", "sir dard", "sar dard", "सिर दर्द", "माथाનો દુખાવો", "માથાનો દુખાવો"],
+      "general_information": [
+        "Mild tension headaches are frequently linked to stress, dehydration, eye strain, or sleep deprivation."
+      ],
+      "self_care": [
+        "Rest in a quiet, dimly lit, well-ventilated room.",
+        "Drink a large glass of water to rule out dehydration as a trigger.",
+        "Apply a cool or warm cloth to forehead or back of neck.",
+        "Take breaks from digital computer/phone screens and practice gentle neck stretches."
+      ],
+      "warning_signs": [
+        "Sudden, explosive severe headache ('worst headache of life' or thunderclap headache)",
+        "Headache accompanied by fever, neck stiffness, or confusion",
+        "Headache following recent head trauma or injury",
+        "Accompanied by focal neurological symptoms: weakness, numbness, or vision loss"
+      ],
+      "when_to_seek_care": [
+        "Headache frequency or severity steadily escalates over days",
+        "Persistent headache in individuals aged over 50 with new onset",
+        "Accompanied by persistent nausea and vomiting"
+      ],
+      "source": "WHO Fact Sheet on Headache Disorders & MoHFW",
+      "source_url": "https://www.who.int/news-room/fact-sheets/detail/headache-disorders",
+      "last_reviewed": "2024-11-30"
+    },
+    {
+      "id": "diarrhea_dehydration",
+      "topic": "Acute Diarrhea & Dehydration Prevention",
+      "aliases": ["diarrhea", "loose motions", "watery stools", "vomiting", "dast", "ulti", "दस्त", "उल्टी", "ઝાડા", "ઉલટી", "dehydration"],
+      "general_information": [
+        "Acute diarrhea is the passage of three or more loose or watery stools per day.",
+        "The primary risk of acute diarrhea and vomiting is fluid loss and dehydration."
+      ],
+      "self_care": [
+        "Prepare and sip WHO-formulated Oral Rehydration Salts (ORS) solution regularly according to package directions.",
+        "Drink clean boiled water, coconut water, rice water, or light broths.",
+        "Continue light, easily digestible foods like bananas, rice, and khichdi.",
+        "Do not withhold food or fluids.",
+        "Wash hands thoroughly with soap after using the toilet and before preparing food."
+      ],
+      "warning_signs": [
+        "Signs of severe dehydration: sunken eyes, extreme thirst, no urine for >8 hours, dry mouth, lethargy",
+        "Presence of visible red blood or black tarry substance in stool",
+        "Continuous high fever or intractable vomiting preventing oral fluid retention",
+        "Diarrhea persisting for more than 48 hours without slowing down"
+      ],
+      "when_to_seek_care": [
+        "Infants or young children showing decreased alertness or sunken soft spot (fontanelle)",
+        "Inability to tolerate even small sips of ORS fluid",
+        "Elderly individuals or those with kidney or cardiac disease"
+      ],
+      "source": "WHO Guidelines on Diarrhoeal Disease & MoHFW Child Health Division",
+      "source_url": "https://www.who.int/news-room/fact-sheets/detail/diarrhoeal-disease",
+      "last_reviewed": "2025-01-10"
+    },
+    {
+      "id": "general_self_care",
+      "topic": "General Health Monitoring & Preventive Self-Care",
+      "aliases": ["general", "fatigue", "body ache", "tired", "कमजोरी", "थकान", "શરીરનો દુખાવો", "થાક"],
+      "general_information": [
+        "Mild generalized symptoms often indicate physiological recovery needs or mild viral reactivity.",
+        "Active monitoring and hydration form the foundation of non-pharmacological self-care."
+      ],
+      "self_care": [
+        "Prioritize 7-8 hours of quality sleep to aid recovery.",
+        "Maintain balanced nutritional intake with wholesome, home-cooked foods.",
+        "Ensure consistent hydration throughout the day.",
+        "Avoid smoking, alcohol, and excessive caffeine during recovery."
+      ],
+      "warning_signs": [
+        "Unexplained rapid weight loss or severe night sweats",
+        "Sudden onset of severe localized pain",
+        "Changes in consciousness, speech, or mobility"
+      ],
+      "when_to_seek_care": [
+        "Symptoms worsen or fail to show gradual improvement over 3 to 5 days",
+        "Presence of pre-existing uncontrolled chronic illnesses"
+      ],
+      "source": "World Health Organization Public Health Guidance",
+      "source_url": "https://www.who.int",
+      "last_reviewed": "2024-12-01"
+    }
+  ]
+}
